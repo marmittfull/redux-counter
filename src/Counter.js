@@ -1,29 +1,31 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import React from 'react'
 import { increment, decrement } from './actions'
+import { connect } from 'react-redux'
 
-class Counter extends Component {
-  render() {
-    return (
-      <p>Counter {this.props.count}
-        <button onClick={this.props.increment}>+</button>
-        <button onClick={this.props.decrement }>-</button>
-      </p>
-    )
-  }
+const Counter = ({count, increment, decrement}) => {
+  return(
+    <p>
+      Contador: {count}
+      <button onClick={() => increment(10)}>+</button>
+      <button onClick={() => decrement(10)}>-</button>
+    </p>
+  )
 }
+
 const mapStateToProps = (state) => {
   return {
     count: state.count
   }
 }
-const mapDispathToProps = (dispatch) => {
+
+const mapDispatchsToProps = (dispatch) => {
   return {
-    increment: () => dispatch(increment),
-    decrement: () => dispatch(decrement)
+    increment: (value) => dispatch(increment(value)),
+    decrement: (value) => dispatch(decrement(value))
   }
 }
+
 export default connect(
   mapStateToProps,
-  mapDispathToProps)
+  mapDispatchsToProps)
   (Counter)
